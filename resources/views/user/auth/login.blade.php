@@ -1,48 +1,132 @@
-<x-guest-layout>
-    ユーザー用
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('frontend.main_master')
 
-    <form method="POST" action="{{ route('user.login') }}">
-        @csrf
+@section('content')
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="{{ '/' }}">Home</a></li>
+                    <li class='active'>Login</li>
+                </ul>
+            </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+    </div><!-- /.breadcrumb -->
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <div class="body-content">
+        <div class="container">
+            <div class="sign-in-page">
+                <div class="row">
+                    <!-- Sign-in -->
+                    <div class="col-md-6 col-sm-6 sign-in">
+                        <h4 class="">Sign in</h4>
+                        <p class="">Hello, Welcome to your account.</p>
+                        <div class="social-sign-in outer-top-xs">
+                            <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with
+                                Facebook</a>
+                            <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
+                        </div>
+                        <form class="register-form outer-top-xs" role="form" method="POST"
+                            action="{{ route('user.login') }}">
+                            @csrf
+                            <div class="form-group">
+                                <label class="info-title" for="email">{{ __('Email Address') }} <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input" name="email"
+                                    id="email" value="{{ old('email') }}" required autofocus autocomplete="username">
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="password">{{ __('Password') }} <span>*</span></label>
+                                <input type="password" class="form-control unicase-form-control text-input" name="password"
+                                    id="password" required autocomplete="current-password">
+                            </div>
+                            <div class="radio outer-xs">
+                                <label>
+                                    <input type="radio" name="remember" id="remember_me"
+                                        value="option2">{{ __('Remember me') }}
+                                </label>
+                                @if (Route::has('user.password.request'))
+                                    <a href="{{ route('user.password.request') }}" class="forgot-password pull-right">Forgot
+                                        your Password?</a>
+                                @endif
+                            </div>
+                            <button type="submit"
+                                class="btn-upper btn btn-primary checkout-page-button">{{ __('Login') }}</button>
+                        </form>
+                    </div>
+                    <!-- Sign-in -->
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                    <!-- create a new account -->
+                    <div class="col-md-6 col-sm-6 create-new-account">
+                        <h4 class="checkout-subtitle">Create a new account</h4>
+                        <p class="text title-tag-line">Create your new account.</p>
+                        <form class="register-form outer-top-xs" role="form" method="POST"
+                            action="{{ route('user.register') }}">
+                            @csrf
+                            <div class="form-group">
+                                <label class="info-title" for="name">{{ __('Name') }} <span>*</span></label>
+                                <input type="text" class="form-control unicase-form-control text-input" name="name"
+                                    id="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="email">{{ __('Email Address') }} <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input" name="email"
+                                    id="email" value="{{ old('email') }}" required autocomplete="username">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="phone_number">{{ __('Phone Number') }}
+                                    <span>*</span></label>
+                                <input type="text" class="form-control unicase-form-control text-input"
+                                    name="phone_number" id="phone_number" value="{{ old('phone_number') }}" required
+                                    autocomplete="username">
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="password">{{ __('Password') }} <span>*</span></label>
+                                <input type="password" class="form-control unicase-form-control text-input" name="password"
+                                    id="password" required autocomplete="new-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="password_confirmation">{{ __('Confirm Password') }}
+                                    <span>*</span></label>
+                                <input type="password" class="form-control unicase-form-control text-input"
+                                    name="password_confirmation" id="password_confirmation" required
+                                    autocomplete="new-password">
+                                @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <button type="submit"
+                                class="btn-upper btn btn-primary checkout-page-button">{{ __('Sign Up') }}</button>
+                        </form>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('user.password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('user.password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                    </div>
+                    <!-- create a new account -->
+                </div><!-- /.row -->
+            </div><!-- /.sigin-in-->
+            <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+            @include('frontend.inc.brands')
+            <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+        </div><!-- /.container -->
+    </div><!-- /.body-content -->
+@endsection

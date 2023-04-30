@@ -1,53 +1,94 @@
-<x-guest-layout>
-    ユーザー用
-    <form method="POST" action="{{ route('user.register') }}">
-        @csrf
+@extends('frontend.main_master')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('content')
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="home.html">Home</a></li>
+                    <li class='active'>Login</li>
+                </ul>
+            </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+    </div><!-- /.breadcrumb -->
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <div class="body-content">
+        <div class="container">
+            <div class="sign-in-page">
+                <div class="row">
+                    <!-- Sign-in -->
+                    <div class="col-md-6 col-sm-6 sign-in">
+                        <h4 class="">Sign in</h4>
+                        <p class="">Hello, Welcome to your account.</p>
+                        <div class="social-sign-in outer-top-xs">
+                            <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with
+                                Facebook</a>
+                            <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
+                        </div>
+                        <form class="register-form outer-top-xs" role="form">
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input"
+                                    id="exampleInputEmail1">
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
+                                <input type="password" class="form-control unicase-form-control text-input"
+                                    id="exampleInputPassword1">
+                            </div>
+                            <div class="radio outer-xs">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Remember
+                                    me!
+                                </label>
+                                <a href="#" class="forgot-password pull-right">Forgot your Password?</a>
+                            </div>
+                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
+                        </form>
+                    </div>
+                    <!-- Sign-in -->
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                    <!-- create a new account -->
+                    <div class="col-md-6 col-sm-6 create-new-account">
+                        <h4 class="checkout-subtitle">Create a new account</h4>
+                        <p class="text title-tag-line">Create your new account.</p>
+                        <form class="register-form outer-top-xs" role="form">
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input"
+                                    id="exampleInputEmail2">
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input"
+                                    id="exampleInputEmail1">
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input"
+                                    id="exampleInputEmail1">
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Password <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input"
+                                    id="exampleInputEmail1">
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Confirm Password <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input"
+                                    id="exampleInputEmail1">
+                            </div>
+                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+                        </form>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('user.login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                    </div>
+                    <!-- create a new account -->
+                </div><!-- /.row -->
+            </div><!-- /.sigin-in-->
+            <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+            @include('frontend.inc.brands')
+            <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+        </div><!-- /.container -->
+    </div><!-- /.body-content -->
+@endsection

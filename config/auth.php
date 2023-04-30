@@ -104,12 +104,14 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+            'reset' => \App\Http\Requests\Auth\ResetPassword::class,
         ],
         'admin' => [
             'provider' => 'admin',
             'table' => 'admin_password_resets',
             'expire' => 60,
             'throttle' => 60,
+            'reset' => \App\Http\Requests\Auth\AdminResetPassword::class,
         ],
     ],
 
